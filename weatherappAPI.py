@@ -32,8 +32,7 @@ def on_get_weather():
         return
     try:
         weather_data = get_weather(place_id)
-        print(weather_data)
-        #need to get this to print inside the window not in terminal
+        print(weather_data) #just to check output is working
         window=tk.Tk()
         window.title("Weather Data")  
         weather_output = tk.Text(window)
