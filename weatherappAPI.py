@@ -44,18 +44,18 @@ def on_get_weather():
         
     except Exception as e:
         messagebox.showerror("Error", f"Failed to get weather data: {e}")
-        
+    
+
+#now have all of it working. Need to make the JSON look nice in window
+
 window = tk.Tk()
 window.title("Weather App")
 window.resizable(width=True, height=True)
 
 place_var = tk.StringVar()
-place_entry = ttk.Entry(master=window, textvariable=place_var, text="Enter Desired location")
+place_entry = ttk.Entry(master=window, textvariable=place_var, width=50)
 button_grabweather = tk.Button(master=window, text="Search")
-#what I need to do here is make the text box grab the input and make it search for that place
 button_grabweather.config(command=on_get_weather)
-
-
 
 place_entry.pack()
 button_grabweather.pack()
