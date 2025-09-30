@@ -22,17 +22,26 @@ def get_weather(place_id: str) -> dict:
     weather_headers = {"X-API-Key": api_key}
     weather_params = {"place_id": place_id}
     response = requests.get(url, headers=weather_headers, params=weather_params)
-    response.raise_for_status()
     return response.json()
+    
 
 def on_get_weather():
-    place_id = place_var.get()
+    place_id = place_entry.get()
     if not place_id:
         messagebox.showerror("You haven't entered a place yet, Chuck one in.")
         return
     try:
         weather_data = get_weather(place_id)
-        messagebox.showinfo("Weather Data")
+        print(weather_data)
+        #need to get this to print inside the window not in terminal
+        window=tk.Tk()
+        window.title("Weather Data")  
+        weather_output = tk.Text(window)
+        weather_output.pack()
+        weather_output.insert("1.0", str(weather_data))
+        window.mainloop()
+        
+        
     except Exception as e:
         messagebox.showerror("Error", f"Failed to get weather data: {e}")
         
@@ -41,8 +50,13 @@ window.title("Weather App")
 window.resizable(width=True, height=True)
 
 place_var = tk.StringVar()
-place_entry = ttk.Entry(master=window, textvariable=place_var)
+place_entry = ttk.Entry(master=window, textvariable=place_var, text="Enter Desired location")
 button_grabweather = tk.Button(master=window, text="Search")
+#what I need to do here is make the text box grab the input and make it search for that place
+button_grabweather.config(command=on_get_weather)
+
+
+
 place_entry.pack()
 button_grabweather.pack()
 
